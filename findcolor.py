@@ -43,3 +43,5 @@ for count, color in colors_sorted:
 #663333 , rgba(102,51,51,255) (remove)
 
 #eaeaea , rgba(234,234,234,255) (check)
+
+# Row 1932: black_trans_ratio=67.92%, colored_ratio=32.08%, removing_enabled=True, removed_pixels=31

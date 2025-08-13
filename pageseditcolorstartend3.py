@@ -93,7 +93,8 @@ import numpy as np
 import os
 
 # ==== CONFIG ====
-IMAGE_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\InProgress\pages\MOD\page005.png"
+# IMAGE_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\InProgress\pages\MOD\page005.png"
+IMAGE_PATH = r"D:\Assets\modified\pages\MOD\page005.png"
 TARGET_COLORS_RGBA = np.array([
     [161, 156, 118, 255],  # #a19c76
     [162, 156, 118, 255],  # #a29c76
