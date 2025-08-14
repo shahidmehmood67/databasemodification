@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 # ==== CONFIG ====
-FOLDER_PATH = r"D:\Assets\modified\pages\MOD"
+FOLDER_PATH = r"D:\Assets\modified\pages\MODSHORT\1"
 IMAGE_EXTENSION = ".png"
 
 # Unconditional areas to clear
@@ -12,25 +12,27 @@ AREAS_TO_CLEAR = [
     (0, 2043, 1151, 2047),   # Bottom last 5 rows
     (0, 0, 2, 2047),         # First 3 columns
     (1149, 0, 1151, 2047),   # Last 3 columns
-    # Top-left chunk strips
-    *[(0, y, 552, y) for y in range(4, 60)],
-    # Top-right chunk strips
-    *[(603, y, 1151, y) for y in range(4, 60)],
-    # Bottom-left chunk strips
-    *[(0, y, 528, y) for y in range(1988, 2043)],
-    # Bottom-right chunk strips
-    *[(625, y, 1151, y) for y in range(1988, 2043)],
 ]
 
 # Vertical strips for conditional removal
 COLOR_FILTERED_STRIPS = [
     (0, 60, 52, 1987),        # Left vertical strip
     (1099, 60, 1151, 1987),   # Right vertical strip
+
+    # Top-left horizontal strip (4px to 60px)
+    *[(0, y, 552, y) for y in range(4, 60)],
+    # Top-right horizontal strip
+    *[(603, y, 1151, y) for y in range(4, 60)],
+
+    # Bottom-left horizontal strip (1988px to 2043px)
+    *[(0, y, 528, y) for y in range(1988, 2043)],
+    # Bottom-right horizontal strip
+    *[(627, y, 1151, y) for y in range(1988, 2043)],
 ]
 
 # Behavior tuning
 BLANK_ROW_THRESHOLD = 2              # consecutive blank rows required to toggle removal
-BLACK_TRANSPARENT_THRESHOLD = 0.85   # 85% black/transparent pixels => skip removal
+BLACK_TRANSPARENT_THRESHOLD = 0.65   # 85% black/transparent pixels => skip removal
 
 # ------------------------------- helpers -----------------------------------
 def bytes_to_kb(b):

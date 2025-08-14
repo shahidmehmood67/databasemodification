@@ -3,7 +3,8 @@ import numpy as np
 import os
 
 # ==== CONFIG ====
-IMAGE_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\InProgress\pages\MOD\page003.png"  # Change to your PNG file
+# IMAGE_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\InProgress\pages\MOD\page003.png"  # Change to your PNG file
+IMAGE_PATH = r"D:\Assets\modified\pages\MOD\page030.png"
 BLOCK_WIDTH = 100   # Width of block (in pixels)
 BLOCK_HEIGHT = 100  # Height of block (in pixels)
 
