@@ -3,14 +3,13 @@ from PIL import Image
 import numpy as np
 
 # ==== CONFIG - set your folder path and thresholds here ====
-# FOLDER_PATH = r"D:\Assets\modified\pages\MOD"   # folder containing PNGs to update in-place
 # FOLDER_PATH = r"D:\Assets\modified\pages\MOD3"
 FOLDER_PATH = r"D:\Assets\modified\pages\MODSHORT\2"
 IMAGE_EXTENSION = ".png"
 
 # thresholds (set as fraction, e.g. 0.85 == 85%)
-VERTICAL_THRESHOLD = 0.65   # rows in left/right strips removed if >= this ratio of black/transparent
-HORIZONTAL_THRESHOLD = 0.54   # columns in top/bottom chunks removed if >= this ratio
+VERTICAL_THRESHOLD = 0.75   # rows in left/right strips removed if >= this ratio of black/transparent
+HORIZONTAL_THRESHOLD = 0.70   # columns in top/bottom chunks removed if >= this ratio
 
 # ==== UNCONDITIONAL AREAS (kept exactly as you specified) ====
 AREAS_TO_CLEAR = [
@@ -18,6 +17,11 @@ AREAS_TO_CLEAR = [
     (0, 2043, 1151, 2047),   # Bottom last 5 rows (y=2043..2047)
     (0,    0,    2, 2047),   # First 3 columns (x=0..2)
     (1149, 0, 1151, 2047),   # Last 3 columns  (x=1149..1151)
+
+    (0, 0, 548, 60),  # Top start left rows
+    (613, 0, 1151, 60),  # Top start Right rows
+    (0, 1988, 528, 2047),  # Bottom end left rows
+    (625, 1988, 1151, 2047),  # Bottom end right rows
 ]
 
 # ==== CONDITIONAL STRIPS / CHUNKS ====
@@ -80,47 +84,6 @@ def process_single_image(path):
         width = x2c - x1c + 1
         print(f"  [VERT STRIP] checking ({x1c},{y1c})-({x2c},{y2c}) rows {y1c}..{y2c}")
 
-        # for y in range(y1c, y2c+1):
-        #     row = arr[y, x1c:x2c+1]  # shape (width,4)
-        #     mask = black_or_transparent_mask_pixels(row)  # (width,)
-        #     ratio = float(mask.sum()) / width if width > 0 else 0.0
-        #     # log
-        #     print(f"    Row {y}: black/transparent = {ratio:.2%}", end="")
-        #     if ratio <= VERTICAL_THRESHOLD:
-        #         arr[y, x1c:x2c+1, 3] = 0
-        #         arr[y, x1c:x2c+1, 0:3] = 0
-        #         total_removed += int(mask.size)
-        #         print("  -> REMOVED")
-        #     else:
-        #         print("  -> kept")
-
-        # prev_keep_1 = False
-        # prev_keep_2 = False
-        #
-        # for y in range(y1c, y2c + 1):
-        #     row = arr[y, x1c:x2c + 1]
-        #     mask = black_or_transparent_mask_pixels(row)
-        #     ratio = float(mask.sum()) / width if width > 0 else 0.0
-        #
-        #     keep = False
-        #     if ratio > VERTICAL_THRESHOLD:
-        #         keep = True
-        #     elif ratio > 0.35 and prev_keep_1 and prev_keep_2:
-        #         keep = True
-        #
-        #     print(f"    Row {y}: black/transparent = {ratio:.2%}", end="")
-        #     if keep:
-        #         print("  -> kept")
-        #     else:
-        #         arr[y, x1c:x2c + 1, 3] = 0
-        #         arr[y, x1c:x2c + 1, 0:3] = 0
-        #         total_removed += int(mask.size)
-        #         print("  -> REMOVED")
-        #
-        #     prev_keep_2 = prev_keep_1
-        #     prev_keep_1 = keep
-
-        # Keep history of last 3 rows
         prev_keeps = [False, False, False]  # oldest first
 
         for y in range(y1c, y2c + 1):
@@ -155,19 +118,32 @@ def process_single_image(path):
         height = y2c - y1c + 1
         print(f"  [HORIZ CHUNK] checking ({x1c},{y1c})-({x2c},{y2c}) cols {x1c}..{x2c}")
 
-        for x in range(x1c, x2c+1):
-            col = arr[y1c:y2c+1, x]  # shape (height,4)
-            mask = black_or_transparent_mask_pixels(col)  # (height,)
+        # 3-column history
+        prev_keeps = [False, False, False]  # oldest first
+
+        for x in range(x1c, x2c + 1):
+            col = arr[y1c:y2c + 1, x]
+            mask = black_or_transparent_mask_pixels(col)
             ratio = float(mask.sum()) / height if height > 0 else 0.0
-            # log
+
+            keep = False
+            if ratio > HORIZONTAL_THRESHOLD:
+                keep = True
+            elif ratio > 0.35 and all(prev_keeps):
+                keep = True
+
             print(f"    Col {x}: black/transparent = {ratio:.2%}", end="")
-            if ratio <= HORIZONTAL_THRESHOLD:
-                arr[y1c:y2c+1, x, 3] = 0
-                arr[y1c:y2c+1, x, 0:3] = 0
+            if keep:
+                print("  -> kept")
+            else:
+                arr[y1c:y2c + 1, x, 3] = 0
+                arr[y1c:y2c + 1, x, 0:3] = 0
                 total_removed += int(mask.size)
                 print("  -> REMOVED")
-            else:
-                print("  -> kept")
+
+            # Shift history
+            prev_keeps.pop(0)
+            prev_keeps.append(keep)
 
     # 4) Save in-place (lossless)
     Image.fromarray(arr).save(path, format="PNG", optimize=True, compress_level=9)
