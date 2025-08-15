@@ -3,8 +3,7 @@ from PIL import Image
 import numpy as np
 
 # ==== CONFIG - set your folder path and thresholds here ====
-# FOLDER_PATH = r"D:\Assets\modified\pages\MODSHORT\2"
-FOLDER_PATH = r"D:\Assets\modified\pages\MOD5\600"
+FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD2\500"
 IMAGE_EXTENSION = ".png"
 
 # thresholds (set as fraction, e.g. 0.85 == 85%)
@@ -19,8 +18,8 @@ AREAS_TO_CLEAR = [
     (0,    0,    2, 2047),   # First 3 columns
     (1149, 0, 1151, 2047),   # Last 3 columns
 
-    (0, 0, 548, 59),         # Top start left
-    (613, 0, 1151, 59),      # Top start right
+    (0, 0, 543, 59),         # Top start left
+    (619, 0, 1151, 59),      # Top start right
     (0, 1988, 528, 2047),    # Bottom end left
     (625, 1988, 1151, 2047), # Bottom end right
 ]
@@ -32,9 +31,16 @@ VERTICAL_STRIPS = [
 ]
 
 HORIZONTAL_CHUNKS = [
-    (0,    4,  1151,  59),   # Top chunk
+    (0,    4,  1151,  59),   # Top left chunk
     (0, 1988,  1151, 2042),  # Bottom chunk
 ]
+
+# HORIZONTAL_CHUNKS = [
+#     (0,    4,  538,  59),   # Top left chunk
+#     (608,    4,  1151,  59),   # Top right chunk
+#     (0, 1988,  531, 2042),  # Bottom chunk
+#     (626, 1988,  1151, 2042),  # Bottom chunk
+# ]
 
 # ---------------- helpers ----------------
 def clamp_rect(x1, y1, x2, y2, w, h):
@@ -71,11 +77,12 @@ def pixel_type_ratios(pixels):
     a = pixels[..., 3]
     rgb = pixels[..., :3]
 
+    tolerance = 10  # treat near-black as black
     is_transparent = (a == 0)
-    is_black_opaque = (a > 0) & np.all(rgb == 0, axis=-1)
+    is_black_opaque = (a > 0) & np.all(rgb <= tolerance, axis=-1)
     is_other = ~(is_transparent | is_black_opaque)
 
-    total = pixels.shape[0] if pixels.ndim == 2 else pixels.shape[0]
+    total = pixels.shape[0]
     if total == 0:
         return 0.0, 0.0, 0.0
 
@@ -84,6 +91,7 @@ def pixel_type_ratios(pixels):
         is_transparent.sum() / total,   # transparent %
         is_other.sum() / total          # other %
     )
+
 
 
 # ---------------- processing functions ----------------
@@ -154,8 +162,8 @@ def process_single_image(path):
             col = arr[y1c:y2c + 1, x]
             black_ratio, trans_ratio, other_ratio = pixel_type_ratios(col)
             ratio = black_ratio + trans_ratio
-            keep = False
 
+            keep = False
             if trans_ratio == 1.0 or black_ratio == 1.0:
                 keep = False
             elif ratio > HORIZONTAL_THRESHOLD:
