@@ -2,6 +2,7 @@ import os
 from PIL import Image
 import numpy as np
 
+# commit
 # ==== CONFIG - set your folder path and thresholds here ====
 FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD2\500"
 IMAGE_EXTENSION = ".png"
