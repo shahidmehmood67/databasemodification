@@ -4,7 +4,7 @@ import numpy as np
 
 # commit
 # ==== CONFIG - set your folder path and thresholds here ====
-FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD2\500"
+FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\InProgress\pages\MOD3\600\100"
 IMAGE_EXTENSION = ".png"
 
 # thresholds (set as fraction, e.g. 0.85 == 85%)
@@ -20,7 +20,8 @@ AREAS_TO_CLEAR = [
     (1149, 0, 1151, 2047),   # Last 3 columns
 
     (0, 0, 543, 59),         # Top start left
-    (619, 0, 1151, 59),      # Top start right
+    (617, 0, 1151, 59),      # Top start right
+
     (0, 1988, 528, 2047),    # Bottom end left
     (625, 1988, 1151, 2047), # Bottom end right
 ]
