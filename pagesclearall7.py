@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 
 # ==== CONFIG - set your folder path here ====
-FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1"
+FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1\100"
 IMAGE_EXTENSION = ".png"
 
 # ==== PER-PAGE CLEARING CONFIG ====
