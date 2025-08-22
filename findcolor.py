@@ -17,7 +17,7 @@ def closest_color_name(rgb):
                 closest_name = name
         return closest_name
 
-IMAGE_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\InProgress\pages\MOD\page005.png"
+IMAGE_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1\page249.png"
 img = Image.open(IMAGE_PATH).convert("RGB")
 
 colors = img.getcolors(maxcolors=img.width * img.height)
