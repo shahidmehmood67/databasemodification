@@ -3,16 +3,17 @@ from PIL import Image
 import numpy as np
 
 # ==== CONFIG ====
-FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1"
+# FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1"
+FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1\200\cut\edit"
 IMAGE_EXTENSION = ".png"
 
 # Areas to color: list of (x1, y1, x2, y2)
 AREAS_TO_COLOR = [
-    (53, 60, 1098, 64),  # top
-    (53, 1979, 1098, 1983),  # bottom
+    (53, 65, 1099, 70),  # top
+    (53, 1979, 1099, 1983),  # bottom
 
-    (53, 60, 57, 1983),  # left
-    (1094, 60, 1098, 1983),  # right
+    (53, 65, 57, 1983),  # left
+    (1095, 65, 1099, 1983),  # right
 ]
 
 # Color in RGBA (red, green, blue, alpha)

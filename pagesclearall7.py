@@ -3,27 +3,29 @@ from PIL import Image
 import numpy as np
 
 # ==== CONFIG - set your folder path here ====
-FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1\100"
+FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1\600\cut"
 IMAGE_EXTENSION = ".png"
 
 # ==== PER-PAGE CLEARING CONFIG ====
 # Key = Quran page number (logical), Value = list of rectangles (x1, y1, x2, y2)
 AREAS_TO_CLEAR = {
-    250: [  # Page 600, but filename will be 599.png
-        (0, 0, 52, 2047),        # left side
-        (1099, 0, 1151, 2047),        # right side
-
+    528: [  # Page 600, but filename will be 599.png
         (0, 0, 1151, 3),  # Top 3 rows
-        (0, 2043, 1151, 2047),  # Bottom 5 rows
+        (0, 2042, 1151, 2047),  # Bottom 5 rows
+        (0, 0, 2, 2047),  # First 3 columns
+        (1144, 0, 1151, 2047),  # Last 3 columns
 
-        # (0, 0, 2, 2047),  # First 3 columns
-        # (1149, 0, 1151, 2047),  # Last 3 columns
+        (0, 0, 52, 2047),        # left side
+        (1099, 0, 1151, 838),        # right side
+        (1099, 963, 1151, 1453),        # right side
+        (1099, 1580, 1151, 2047),        # right side
 
-        (0, 0, 543, 59),  # Top start left
-        (610, 0, 1151, 59),  # Top start right
 
-        (0, 1984, 519, 2047),  # Bottom end left
-        (635, 1984, 1151, 2047)  # Bottom end right
+        (0, 0, 538, 59),  # Top start left
+        (605, 0, 1151, 59),  # Top start right
+
+        (0, 1988, 523, 2047),  # Bottom end left
+        (624, 1988, 1151, 2047)  # Bottom end right
     ],
     # Add more pages as needed...
 }
