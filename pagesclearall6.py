@@ -4,7 +4,7 @@ import numpy as np
 
 # commit
 # ==== CONFIG - set your folder path and thresholds here ====
-FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\InProgress\pages\MOD3\600\100"
+FOLDER_PATH = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD1\300\ORG\check"
 IMAGE_EXTENSION = ".png"
 
 # thresholds (set as fraction, e.g. 0.85 == 85%)
@@ -19,10 +19,10 @@ AREAS_TO_CLEAR = [
     (0,    0,    2, 2047),   # First 3 columns
     (1149, 0, 1151, 2047),   # Last 3 columns
 
-    (0, 0, 543, 59),         # Top start left
-    (617, 0, 1151, 59),      # Top start right
+    (0, 0, 535, 59),         # Top start left
+    (611, 0, 1151, 59),      # Top start right
 
-    (0, 1988, 528, 2047),    # Bottom end left
+    (0, 1988, 526, 2047),    # Bottom end left
     (625, 1988, 1151, 2047), # Bottom end right
 ]
 
@@ -121,7 +121,8 @@ def process_single_image(path):
         width = x2c - x1c + 1
         print(f"  [VERT STRIP] checking ({x1c},{y1c})-({x2c},{y2c}) rows {y1c}..{y2c}")
 
-        prev_keeps = [False, False, False]  # oldest first
+        # prev_keeps = [False, False, False]  # oldest first
+        prev_keeps = [False, False]  # oldest first
 
         for y in range(y1c, y2c + 1):
             row = arr[y, x1c:x2c + 1]
@@ -158,7 +159,8 @@ def process_single_image(path):
         height = y2c - y1c + 1
         print(f"  [HORIZ CHUNK] checking ({x1c},{y1c})-({x2c},{y2c}) cols {x1c}..{x2c}")
 
-        prev_keeps = [False, False, False]  # oldest first
+        # prev_keeps = [False, False, False]  # oldest first
+        prev_keeps = [False, False]  # oldest first
 
         for x in range(x1c, x2c + 1):
             col = arr[y1c:y2c + 1, x]
