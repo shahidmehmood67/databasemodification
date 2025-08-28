@@ -42,5 +42,5 @@ def optimize_pngs(folder_path):
 
 if __name__ == "__main__":
     # 👉 Change this path to your folder
-    FOLDER = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD2Compress\usmani\assets2"
+    FOLDER = r"E:\QuranSqlAllData\GwalQuran\ModificationForIndopak\Pages\MOD2Compress\assets3"
     optimize_pngs(FOLDER)
