@@ -4,10 +4,11 @@ import json
 import re
 
 # Root containing language packs
-ROOT_DIR = r"H:\CodersInsightWorkSpace\Gwal Apps\Al Quran\HolyQuran-Gwal"
+# ROOT_DIR = r"H:\CodersInsightWorkSpace\Gwal Apps\Al Quran\HolyQuran-Gwal"
+ROOT_DIR = r"D:\Android & Code Work\Working Code\CIT\HolyQuran-Gwal"
 
 # Output folder
-OUTPUT_ROOT = r"H:\Other Projects\Python\db\tafseer_reports"
+OUTPUT_ROOT = r"D:\Android & Code Work\Assets Working\db\tafseer_reports"
 
 # Regex patterns
 REFERENCE_ONLY = re.compile(r'^\s*\d+\s*:\s*\d+\s*$')
@@ -48,7 +49,7 @@ for folder in sorted(os.listdir(ROOT_DIR)):
 
     sqlite_files = [
         f for f in os.listdir(assets_path)
-        if f.lower().endswith(".sqlite")
+        if f.lower().endswith(".db")
     ]
 
     if not sqlite_files:

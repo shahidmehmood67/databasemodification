@@ -9,10 +9,13 @@ import re
 # ============================================================
 
 # Root containing language packs
-ROOT_DIR = r"H:\Other Projects\Python\db\tafseer_newdb"
+# ROOT_DIR = r"H:\Other Projects\Python\db\tafseer_newdb"
+ROOT_DIR = r"D:\Android & Code Work\Working Code\CIT\HolyQuran-Gwal"
 
 # Output folder
-OUTPUT_ROOT = r"H:\Other Projects\Python\db\tafseer_reports_3_newdb_2"
+# OUTPUT_ROOT = r"H:\Other Projects\Python\db\tafseer_reports_3_newdb_2"
+OUTPUT_ROOT = r"D:\Android & Code Work\Assets Working\db\tafseer_reports"
+
 
 
 # ============================================================
@@ -79,10 +82,21 @@ for folder in sorted(os.listdir(ROOT_DIR)):
 
     total_languages += 1
 
+    if folder == "on_lang_pack_kurdi":
+        continue
+
     # Database files are directly inside the language folder
+    # language_path = os.path.join(
+    #     ROOT_DIR,
+    #     folder
+    # )
+
     language_path = os.path.join(
         ROOT_DIR,
-        folder
+        folder,
+        "src",
+        "main",
+        "assets"
     )
 
     if not os.path.isdir(language_path):
