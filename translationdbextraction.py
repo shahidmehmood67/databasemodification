@@ -4,7 +4,7 @@ import json
 import re
 
 # Root containing language packs
-ROOT_DIR = r"H:\CodersInsightWorkSpace\Gwal Apps\Al Quran\Quran"
+ROOT_DIR = r"H:\CodersInsightWorkSpace\Gwal Apps\Al Quran\HolyQuran-Gwal"
 
 # Output folder
 OUTPUT_ROOT = r"H:\Other Projects\Python\db\tafseer_reports"
